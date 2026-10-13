@@ -935,3 +935,509 @@
 
   Ese mínimo de JavaScript hace falta: sin él no se pueden mostrar los errores
   con el estilo de Bootstrap (por el novalidate) ni abrir el modal.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\Usuario\Desktop\Diplomatura\Entregable Mockup\css\styles.css in the
+  IDE. This may or may not be related to the current task.</ide_opened_file>
+
+> Proponé un plan de estilos para la paleta de colores como variables CSS
+
+● Propongo una paleta de dos capas en :root. Abajo están los grises de base y
+  encima nombres que dicen para qué se usa cada color. También reasigno algunas
+  variables de Bootstrap, así los grises de las clases de Bootstrap coinciden
+  con los tuyos. Esto es solo la propuesta: no modifiqué css/styles.css.
+
+  Qué hay hoy
+
+  En css/styles.css hay 9 grises escritos a mano: #f8f8f8, #f3f3f3, #e6e6e6,
+  #ccc, #999, #777, #555, #444 y #333. Además, Bootstrap pone sus propios grises
+  en bg-body-tertiary, text-body-secondary, btn-outline-dark y
+  text-bg-secondary, y no coinciden del todo con los del mockup.
+
+  Plan: dos capas en :root
+
+  1. Escala de grises. Es la paleta en sí; acá están los valores hexadecimales:
+
+  ┌────────────┬─────────┬────────────────────────────────────────────────┐
+  │  Variable  │  Valor  │                 Hoy se usa en                  │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-50  │ #f8f8f8 │ fondo del hero                                 │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-100 │ #f3f3f3 │ fondo de contacto                              │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-200 │ #e6e6e6 │ recuadros "Foto"/"Mapa", texto del footer      │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-300 │ #ccc    │ relleno del logo                               │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-500 │ #999    │ barras laterales, borde del logo               │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-600 │ #777    │ texto de los recuadros                         │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-700 │ #555    │ botón oscuro, footer                           │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-800 │ #444    │ botón al pasar el mouse                        │
+  ├────────────┼─────────┼────────────────────────────────────────────────┤
+  │ --gris-900 │ #333    │ botón al hacer clic, subrayado del link activo │
+  └────────────┴─────────┴────────────────────────────────────────────────┘
+
+  2. Variables por uso. Las reglas usan solo estas, nunca los hexadecimales:
+
+  ┌───────────────────────────┬──────────────────────────────────┐
+  │         Variable          │             Apunta a             │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-fondo-suave       │ --gris-50                        │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-fondo-seccion     │ --gris-100                       │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-placeholder       │ --gris-200                       │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-placeholder-texto │ --gris-600                       │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-acento            │ --gris-700 (botones principales) │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-acento-hover      │ --gris-800                       │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-acento-activo     │ --gris-900                       │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-borde-destacado   │ --gris-500                       │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-footer-fondo      │ --gris-700                       │
+  ├───────────────────────────┼──────────────────────────────────┤
+  │ --color-footer-texto      │ --gris-200                       │
+  └───────────────────────────┴──────────────────────────────────┘
+
+  Conectarla con Bootstrap
+
+  En el mismo :root reasigno algunas variables de Bootstrap 5.3 para que sus
+  clases también tomen la paleta:
+  - --bs-tertiary-bg → fondo de la navbar (bg-body-tertiary).
+  - --bs-secondary-color → texto gris de text-body-secondary.
+  - --bs-border-color → bordes de cards e inputs.
+  - --bs-secondary-bg → fondo de los badges grises y del recuadro "+54".
+
+  Para btn-outline-dark y los badges text-bg-secondary hay que reasignar sus
+  variables propias (--bs-btn-color, --bs-btn-border-color, etc.), igual que ya
+  se hace con .btn-dark.
+
+  Ventajas
+
+  - Cambiar a la marca real es un solo paso: cuando lleguen los colores, por
+    ejemplo un marrón café, se cambia --color-acento y se actualizan los
+    botones, el footer y los demás lugares que lo usan.
+  - No se repiten valores: cada hexadecimal está escrito una sola vez.
+  - Modo oscuro posible más adelante: se reasignan las variables por uso dentro
+    de @media (prefers-color-scheme: dark), sin tocar las reglas.
+
+  Pasos
+
+  1. Agregar el bloque :root al principio de styles.css.
+  2. Cambiar cada hexadecimal de las reglas por su variable por uso.
+  3. Reasignar las variables de Bootstrap y las de btn-outline-dark y .badge.
+  4. Revisar en el navegador que todo se vea igual que antes, porque los valores
+     no cambian.
+
+  ¿Lo aplico así o querés cambiar algún nombre?
+
+> si, aplicalo
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(css\styles.css)
+  ⎿  Added 70 lines, removed 17 lines
+       1 -/* Tonos grises del mockup sobre el botón oscuro de Bootstrap *
+         -/                                                              
+       1 +/* ==========================================================  
+       2 +   Paleta                                                      
+       3 +   1. Escala de grises: los únicos valores hex del archivo.    
+       4 +   2. Variables por uso: las que usan las reglas.              
+       5 +   3. Variables de Bootstrap reasignadas a la paleta.          
+       6 +   ========================================================== *
+         +/                                                              
+       7 +:root {                                                        
+       8 +  /* 1. Escala de grises */                                    
+       9 +  --gris-50: #f8f8f8;                                          
+      10 +  --gris-100: #f3f3f3;                                         
+      11 +  --gris-200: #e6e6e6;                                         
+      12 +  --gris-300: #ccc;                                            
+      13 +  --gris-500: #999;                                            
+      14 +  --gris-600: #777;                                            
+      15 +  --gris-700: #555;                                            
+      16 +  --gris-800: #444;                                            
+      17 +  --gris-900: #333;                                            
+      18 +                                                               
+      19 +  /* 2. Variables por uso */                                   
+      20 +  --color-fondo-suave: var(--gris-50);                         
+      21 +  --color-fondo-seccion: var(--gris-100);                      
+      22 +  --color-placeholder: var(--gris-200);                        
+      23 +  --color-placeholder-texto: var(--gris-600);                  
+      24 +  --color-acento: var(--gris-700);                             
+      25 +  --color-acento-hover: var(--gris-800);                       
+      26 +  --color-acento-activo: var(--gris-900);                      
+      27 +  --color-borde-destacado: var(--gris-500);                    
+      28 +  --color-footer-fondo: var(--gris-700);                       
+      29 +  --color-footer-texto: var(--gris-200);                       
+      30 +                                                               
+      31 +  /* 3. Bootstrap */                                           
+      32 +  --bs-tertiary-bg: var(--color-fondo-suave);                  
+      33 +  --bs-secondary-bg: var(--color-placeholder);                 
+      34 +  --bs-secondary-color: var(--gris-700);                       
+      35 +  --bs-border-color: var(--gris-300);                          
+      36 +}                                                              
+      37 +                                                               
+      38 +/* Botón principal */                                          
+      39  .btn-dark {
+       3 -  --bs-btn-bg: #555;                                           
+       4 -  --bs-btn-border-color: #555;                                 
+       5 -  --bs-btn-hover-bg: #444;                                     
+       6 -  --bs-btn-hover-border-color: #444;                           
+       7 -  --bs-btn-active-bg: #333;                                    
+       8 -  --bs-btn-active-border-color: #333;                          
+      40 +  --bs-btn-bg: var(--color-acento);                            
+      41 +  --bs-btn-border-color: var(--color-acento);                  
+      42 +  --bs-btn-hover-bg: var(--color-acento-hover);                
+      43 +  --bs-btn-hover-border-color: var(--color-acento-hover);      
+      44 +  --bs-btn-active-bg: var(--color-acento-activo);              
+      45 +  --bs-btn-active-border-color: var(--color-acento-activo);    
+      46  }
+      47  
+      48 +/* Botón con borde */                                          
+      49 +.btn-outline-dark {                                            
+      50 +  --bs-btn-color: var(--color-acento-activo);                  
+      51 +  --bs-btn-border-color: var(--color-acento-activo);           
+      52 +  --bs-btn-hover-bg: var(--color-acento);                      
+      53 +  --bs-btn-hover-border-color: var(--color-acento);            
+      54 +  --bs-btn-active-bg: var(--color-acento-hover);               
+      55 +  --bs-btn-active-border-color: var(--color-acento-hover);     
+      56 +}                                                              
+      57 +                                                               
+      58 +/* Badges grises del mockup: fondo claro y texto oscuro */     
+      59 +.badge.text-bg-secondary {                                     
+      60 +  background-color: var(--color-placeholder) !important;       
+      61 +  color: var(--color-acento) !important;                       
+      62 +}                                                              
+      63 +                                                               
+      64  /* Logo circular (placeholder) */
+      65  .logo {
+      66    width: 28px;
+      67    height: 28px;
+      15 -  background: #ccc;                                            
+      16 -  border: 1px solid #999;                                      
+      68 +  background: var(--gris-300);                                 
+      69 +  border: 1px solid var(--color-borde-destacado);              
+      70  }
+      71  
+      72  /* Subrayado del link activo */
+      73  @media (min-width: 992px) {
+      74    .navbar .nav-link.active {
+      75      font-weight: 600;
+      23 -    border-bottom: 2px solid #333;                             
+      76 +    border-bottom: 2px solid var(--color-acento-activo);       
+      77      padding-bottom: 2px;
+      78    }
+      79  }
+      80  
+      81  /* Fondo gris muy claro del hero */
+      82  .hero {
+      30 -  background: #f8f8f8;                                         
+      83 +  background: var(--color-fondo-suave);                        
+      84  }
+      85  
+      86  /* Recuadro "Foto" del mockup (se reemplaza por <img> cuando ha
+          ya fotos) */
+     ...
+      89    align-items: center;
+      90    justify-content: center;
+      91    height: 200px;
+      39 -  background: #e6e6e6;                                         
+      40 -  color: #777;                                                 
+      92 +  background: var(--color-placeholder);                        
+      93 +  color: var(--color-placeholder-texto);                       
+      94    font-size: .8rem;
+      95  }
+      96  
+     ...
+      101  
+      102  /* Fondo gris claro de la sección de contacto */
+      103  .contacto {
+       51 -  background: #f3f3f3;                                        
+      104 +  background: var(--color-fondo-seccion);                     
+      105  }
+      106  
+      107  /* Barra lateral gris de Dirección / Horarios / Teléfono */
+      108  .info {
+       56 -  border-color: #999 !important;                              
+      109 +  border-color: var(--color-borde-destacado) !important;      
+      110  }
+      111  
+      112  /* Footer gris oscuro del mockup */
+      113  .footer {
+       61 -  background: #555;                                           
+       62 -  color: #e6e6e6;                                             
+      114 +  background: var(--color-footer-fondo);                      
+      115 +  color: var(--color-footer-texto);                           
+      116  }
+
+● Apliqué la paleta en css/styles.css: el archivo ya no tiene hexadecimales
+  sueltos en las reglas. No lo revisé en el navegador.
+
+  Cómo quedó:
+  - :root junta las tres capas: la escala --gris-50 a --gris-900 (el único lugar
+    del archivo con valores hexadecimales), las variables por uso
+    (--color-acento, --color-fondo-seccion, etc.) y las variables de Bootstrap
+    reasignadas.
+  - Reglas: todas usan las variables por uso. La única excepción es .logo, que
+    toma --gris-300 directo, porque es un relleno provisorio.
+
+  Cambios que se notan a la vista (los valores propios no cambiaron, estos
+  vienen de reasignar Bootstrap):
+  - Badges de nivel y "Próximo curso": antes eran gris medio con texto blanco,
+    el gris por defecto de Bootstrap. Ahora tienen fondo gris claro y texto
+    oscuro, como en el mockup.
+  - Botones con borde ("Contactanos", "Ver más", "Reservar lugar"): pasaron del
+    negro de Bootstrap al #333, y al pasar el mouse se rellenan con #555.
+  - Navbar, recuadro "+54", bordes y textos secundarios: son grises muy
+    parecidos a los de Bootstrap, así que la diferencia es mínima.
+
+  Para cambiar a los colores de la marca, por ejemplo un marrón café, hay que
+  tocar --color-acento y sus dos variantes (hover y activo). Con eso cambian
+  todos los botones y el subrayado del link activo.
+
+> hacé el cambio
+
+● Entiendo que "el cambio" es pasar el acento a marrón café. Agrego una escala
+  café y apunto las tres variables de acento a ella.
+
+● Update(css\styles.css)
+  ⎿  Added 8 lines, removed 3 lines
+      16    --gris-800: #444;
+      17    --gris-900: #333;
+      18  
+      19 +  /* Escala café (marca) */                                    
+      20 +  --cafe-700: #6f4e37;                                         
+      21 +  --cafe-800: #5a3e2b;                                         
+      22 +  --cafe-900: #4a3222;                                         
+      23 +                                                               
+      24    /* 2. Variables por uso */
+      25    --color-fondo-suave: var(--gris-50);
+      26    --color-fondo-seccion: var(--gris-100);
+      27    --color-placeholder: var(--gris-200);
+      28    --color-placeholder-texto: var(--gris-600);
+      24 -  --color-acento: var(--gris-700);                             
+      25 -  --color-acento-hover: var(--gris-800);                       
+      26 -  --color-acento-activo: var(--gris-900);                      
+      29 +  --color-acento: var(--cafe-700);                             
+      30 +  --color-acento-hover: var(--cafe-800);                       
+      31 +  --color-acento-activo: var(--cafe-900);                      
+      32    --color-borde-destacado: var(--gris-500);
+      33    --color-footer-fondo: var(--gris-700);
+      34    --color-footer-texto: var(--gris-200);
+
+● Update(css\styles.css)
+  ⎿  Added 1 line, removed 1 line
+      1  /* ==========================================================
+      2     Paleta
+      3 -   1. Escala de grises: los únicos valores hex del archivo.     
+      3 +   1. Escalas de grises y café: los únicos valores hex del archi
+        +vo.                                                             
+      4     2. Variables por uso: las que usan las reglas.
+      5     3. Variables de Bootstrap reasignadas a la paleta.
+      6     ========================================================== */
+
+● Cambié el acento a marrón café en css/styles.css. No lo revisé en el
+  navegador.
+
+  Lo que cambié:
+  - Agregué una escala café en :root:
+    - --cafe-700: #6f4e37, el color base;
+    - --cafe-800: #5a3e2b, para cuando se pasa el mouse;
+    - --cafe-900: #4a3222, para cuando se hace clic.
+  - --color-acento, --color-acento-hover y --color-acento-activo ahora apuntan a
+    esa escala en lugar de a los grises.
+
+  Qué se ve en marrón:
+  - Los botones "Inscribite", "Ver cursos", "Enviar consulta" y "Aceptar", con
+    fondo café.
+  - Los botones con borde "Contactanos", "Ver más" y "Reservar lugar", con borde
+    y texto café, y relleno café al pasar el mouse.
+  - El texto de los badges de nivel.
+  - El subrayado de "Inicio" en la navbar.
+
+  Lo que sigue en gris: los fondos, los recuadros "Foto" y "Mapa", las barras
+  laterales y el footer. Esas variables no apuntan al acento.
+
+  El texto blanco sobre #6f4e37 tiene buen contraste: más de 7:1, por encima del
+  mínimo recomendado de 4.5:1.
+
+  Antes habías dicho que por ahora querías los mismos tonos del mockup. Si la
+  idea era otra, se vuelve a los grises cambiando esas tres líneas de :root. Si
+  querés el footer también en café, se apunta --color-footer-fondo a --cafe-900.
+
+> siento que aún hay demasiado gris
+
+● Para bajar el gris, cambio los fondos neutros por cremas cálidos y paso el
+  footer y los bordes destacados a café.
+
+● Update(css\styles.css)
+  ⎿  Added 19 lines, removed 9 lines
+      21    --cafe-800: #5a3e2b;
+      22    --cafe-900: #4a3222;
+      23  
+      24 +  /* Escala crema (neutros cálidos) */                         
+      25 +  --crema-50: #fbf8f4;                                         
+      26 +  --crema-100: #f5efe6;                                        
+      27 +  --crema-200: #ebe0d1;                                        
+      28 +  --crema-300: #dccbb5;                                        
+      29 +  --crema-500: #a88b6c;                                        
+      30 +  --crema-600: #8a6f55;                                        
+      31 +                                                               
+      32    /* 2. Variables por uso */
+      25 -  --color-fondo-suave: var(--gris-50);                         
+      26 -  --color-fondo-seccion: var(--gris-100);                      
+      27 -  --color-placeholder: var(--gris-200);                        
+      28 -  --color-placeholder-texto: var(--gris-600);                  
+      33 +  --color-fondo-suave: var(--crema-50);                        
+      34 +  --color-fondo-seccion: var(--crema-100);                     
+      35 +  --color-placeholder: var(--crema-200);                       
+      36 +  --color-placeholder-texto: var(--crema-600);                 
+      37    --color-acento: var(--cafe-700);
+      38    --color-acento-hover: var(--cafe-800);
+      39    --color-acento-activo: var(--cafe-900);
+      32 -  --color-borde-destacado: var(--gris-500);                    
+      33 -  --color-footer-fondo: var(--gris-700);                       
+      34 -  --color-footer-texto: var(--gris-200);                       
+      40 +  --color-borde-destacado: var(--cafe-700);                    
+      41 +  --color-footer-fondo: var(--cafe-900);                       
+      42 +  --color-footer-texto: var(--crema-200);                      
+      43  
+      44    /* 3. Bootstrap */
+      45    --bs-tertiary-bg: var(--color-fondo-suave);
+      46    --bs-secondary-bg: var(--color-placeholder);
+      39 -  --bs-secondary-color: var(--gris-700);                       
+      40 -  --bs-border-color: var(--gris-300);                          
+      47 +  --bs-secondary-color: var(--crema-600);                      
+      48 +  --bs-border-color: var(--crema-300);                         
+      49 +  --bs-body-color: var(--cafe-900);                            
+      50 +  --bs-emphasis-color: var(--cafe-900);                        
+      51  }
+      52  
+      53  /* Botón principal */
+● Update(css\styles.css)
+  ⎿  Added 1 line, removed 1 line
+      80  .logo {
+      81    width: 28px;
+      82    height: 28px;
+      83 -  background: var(--gris-300);                                 
+      83 +  background: var(--crema-300);                                
+      84    border: 1px solid var(--color-borde-destacado);
+      85  }
+      86  
+
+● Update(css\styles.css)
+  ⎿  Added 1 line, removed 1 line
+      1  /* ==========================================================
+      2     Paleta
+      3 -   1. Escalas de grises y café: los únicos valores hex del archi
+        -vo.                                                             
+      3 +   1. Escalas (gris, café, crema): los únicos valores hex del ar
+        +chivo.                                                          
+      4     2. Variables por uso: las que usan las reglas.
+      5     3. Variables de Bootstrap reasignadas a la paleta.
+      6     ========================================================== */
+
+● Reviso dos detalles: el contraste del texto secundario y si la escala gris
+  quedó sin usar.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● La escala gris ya no se usa en ninguna regla. Además, #8a6f55 da un contraste
+  de aproximadamente 4.4:1 sobre crema, por debajo del 4.5:1 recomendado. Lo
+  oscurezco y saco los grises.
+
+● Update(css\styles.css)
+  ⎿  Added 1 line, removed 1 line
+      27    --crema-200: #ebe0d1;
+      28    --crema-300: #dccbb5;
+      29    --crema-500: #a88b6c;
+      30 -  --crema-600: #8a6f55;                                        
+      30 +  --crema-600: #7a5f47;                                        
+      31  
+      32    /* 2. Variables por uso */
+      33    --color-fondo-suave: var(--crema-50);
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(css\styles.css)
+  ⎿  Added 2 lines, removed 13 lines
+       1  /* ==========================================================
+       2     Paleta
+       3 -   1. Escalas (gris, café, crema): los únicos valores hex del a
+         -rchivo.                                                        
+       3 +   1. Escalas (café, crema): los únicos valores hex del archivo
+         +.                                                              
+       4     2. Variables por uso: las que usan las reglas.
+       5     3. Variables de Bootstrap reasignadas a la paleta.
+       6     ========================================================== *
+          /
+       7  :root {
+       8 -  /* 1. Escala de grises */                                    
+       9 -  --gris-50: #f8f8f8;                                          
+      10 -  --gris-100: #f3f3f3;                                         
+      11 -  --gris-200: #e6e6e6;                                         
+      12 -  --gris-300: #ccc;                                            
+      13 -  --gris-500: #999;                                            
+      14 -  --gris-600: #777;                                            
+      15 -  --gris-700: #555;                                            
+      16 -  --gris-800: #444;                                            
+      17 -  --gris-900: #333;                                            
+      18 -                                                               
+      19 -  /* Escala café (marca) */                                    
+       8 +  /* 1. Escala café (marca) */                                 
+       9    --cafe-700: #6f4e37;
+      10    --cafe-800: #5a3e2b;
+      11    --cafe-900: #4a3222;
+
+● Cambié los grises por tonos cálidos en css/styles.css: la paleta ahora tiene
+  solo café y crema. No lo revisé en el navegador.
+
+  Escalas en :root:
+  - Café: #6f4e37, #5a3e2b y #4a3222.
+  - Crema: de #fbf8f4 (casi blanco cálido) a #7a5f47 (marrón suave para textos
+    secundarios).
+  - Gris: la saqué; no la usaba ninguna regla.
+
+  Qué cambia a la vista:
+
+  ┌──────────────────────────────────┬─────────────┬────────────────────────┐
+  │             Elemento             │    Antes    │         Ahora          │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Fondo del hero y de la navbar    │ gris muy    │ crema casi blanco      │
+  │                                  │ claro       │                        │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Fondo de contacto                │ gris claro  │ crema                  │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Recuadros "Foto" y "Mapa",       │ gris        │ beige                  │
+  │ badges, "+54"                    │             │                        │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Bordes de cards e inputs         │ gris        │ beige                  │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Textos secundarios               │ gris        │ marrón suave           │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Texto general y títulos          │ casi negro  │ café muy oscuro        │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Barras laterales de "Dónde       │ gris        │ café                   │
+  │ estamos"                         │             │                        │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Footer                           │ gris oscuro │ café oscuro, con texto │
+  │                                  │             │  crema                 │
+  ├──────────────────────────────────┼─────────────┼────────────────────────┤
+  │ Botones y subrayado de "Inicio"  │ café        │ sin cambios            │
+  └──────────────────────────────────┴─────────────┴────────────────────────┘
+
+  Contraste del texto secundario: el primer tono que elegí (#8a6f55) daba
+  alrededor de 4.4:1 sobre el fondo crema, apenas por debajo del 4.5:1
+  recomendado. Lo oscurecí a #7a5f47, que da alrededor de 5.5:1. Estos números
+  los calculé a mano porque no hay Python ni Node instalados para medirlos.
+
+  Lo que puede seguir viéndose gris es lo que Bootstrap pinta con colores
+  propios fuera de estas variables, como el ícono de la hamburguesa o la flecha
+  del desplegable. Si ves algún gris puntual, decime dónde y lo ajusto.

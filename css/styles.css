@@ -1,33 +1,90 @@
-/* Tonos grises del mockup sobre el botón oscuro de Bootstrap */
+/* ==========================================================
+   Paleta
+   1. Escalas (café, crema): los únicos valores hex del archivo.
+   2. Variables por uso: las que usan las reglas.
+   3. Variables de Bootstrap reasignadas a la paleta.
+   ========================================================== */
+:root {
+  /* 1. Escala café (marca) */
+  --cafe-700: #6f4e37;
+  --cafe-800: #5a3e2b;
+  --cafe-900: #4a3222;
+
+  /* Escala crema (neutros cálidos) */
+  --crema-50: #fbf8f4;
+  --crema-100: #f5efe6;
+  --crema-200: #ebe0d1;
+  --crema-300: #dccbb5;
+  --crema-500: #a88b6c;
+  --crema-600: #7a5f47;
+
+  /* 2. Variables por uso */
+  --color-fondo-suave: var(--crema-50);
+  --color-fondo-seccion: var(--crema-100);
+  --color-placeholder: var(--crema-200);
+  --color-placeholder-texto: var(--crema-600);
+  --color-acento: var(--cafe-700);
+  --color-acento-hover: var(--cafe-800);
+  --color-acento-activo: var(--cafe-900);
+  --color-borde-destacado: var(--cafe-700);
+  --color-footer-fondo: var(--cafe-900);
+  --color-footer-texto: var(--crema-200);
+
+  /* 3. Bootstrap */
+  --bs-tertiary-bg: var(--color-fondo-suave);
+  --bs-secondary-bg: var(--color-placeholder);
+  --bs-secondary-color: var(--crema-600);
+  --bs-border-color: var(--crema-300);
+  --bs-body-color: var(--cafe-900);
+  --bs-emphasis-color: var(--cafe-900);
+}
+
+/* Botón principal */
 .btn-dark {
-  --bs-btn-bg: #555;
-  --bs-btn-border-color: #555;
-  --bs-btn-hover-bg: #444;
-  --bs-btn-hover-border-color: #444;
-  --bs-btn-active-bg: #333;
-  --bs-btn-active-border-color: #333;
+  --bs-btn-bg: var(--color-acento);
+  --bs-btn-border-color: var(--color-acento);
+  --bs-btn-hover-bg: var(--color-acento-hover);
+  --bs-btn-hover-border-color: var(--color-acento-hover);
+  --bs-btn-active-bg: var(--color-acento-activo);
+  --bs-btn-active-border-color: var(--color-acento-activo);
+}
+
+/* Botón con borde */
+.btn-outline-dark {
+  --bs-btn-color: var(--color-acento-activo);
+  --bs-btn-border-color: var(--color-acento-activo);
+  --bs-btn-hover-bg: var(--color-acento);
+  --bs-btn-hover-border-color: var(--color-acento);
+  --bs-btn-active-bg: var(--color-acento-hover);
+  --bs-btn-active-border-color: var(--color-acento-hover);
+}
+
+/* Badges grises del mockup: fondo claro y texto oscuro */
+.badge.text-bg-secondary {
+  background-color: var(--color-placeholder) !important;
+  color: var(--color-acento) !important;
 }
 
 /* Logo circular (placeholder) */
 .logo {
   width: 28px;
   height: 28px;
-  background: #ccc;
-  border: 1px solid #999;
+  background: var(--crema-300);
+  border: 1px solid var(--color-borde-destacado);
 }
 
 /* Subrayado del link activo */
 @media (min-width: 992px) {
   .navbar .nav-link.active {
     font-weight: 600;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid var(--color-acento-activo);
     padding-bottom: 2px;
   }
 }
 
 /* Fondo gris muy claro del hero */
 .hero {
-  background: #f8f8f8;
+  background: var(--color-fondo-suave);
 }
 
 /* Recuadro "Foto" del mockup (se reemplaza por <img> cuando haya fotos) */
@@ -36,8 +93,8 @@
   align-items: center;
   justify-content: center;
   height: 200px;
-  background: #e6e6e6;
-  color: #777;
+  background: var(--color-placeholder);
+  color: var(--color-placeholder-texto);
   font-size: .8rem;
 }
 
@@ -48,16 +105,16 @@ html {
 
 /* Fondo gris claro de la sección de contacto */
 .contacto {
-  background: #f3f3f3;
+  background: var(--color-fondo-seccion);
 }
 
 /* Barra lateral gris de Dirección / Horarios / Teléfono */
 .info {
-  border-color: #999 !important;
+  border-color: var(--color-borde-destacado) !important;
 }
 
 /* Footer gris oscuro del mockup */
 .footer {
-  background: #555;
-  color: #e6e6e6;
+  background: var(--color-footer-fondo);
+  color: var(--color-footer-texto);
 }
