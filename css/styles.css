@@ -1,0 +1,63 @@
+/* Tonos grises del mockup sobre el botón oscuro de Bootstrap */
+.btn-dark {
+  --bs-btn-bg: #555;
+  --bs-btn-border-color: #555;
+  --bs-btn-hover-bg: #444;
+  --bs-btn-hover-border-color: #444;
+  --bs-btn-active-bg: #333;
+  --bs-btn-active-border-color: #333;
+}
+
+/* Logo circular (placeholder) */
+.logo {
+  width: 28px;
+  height: 28px;
+  background: #ccc;
+  border: 1px solid #999;
+}
+
+/* Subrayado del link activo */
+@media (min-width: 992px) {
+  .navbar .nav-link.active {
+    font-weight: 600;
+    border-bottom: 2px solid #333;
+    padding-bottom: 2px;
+  }
+}
+
+/* Fondo gris muy claro del hero */
+.hero {
+  background: #f8f8f8;
+}
+
+/* Recuadro "Foto" del mockup (se reemplaza por <img> cuando haya fotos) */
+.placeholder-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: #e6e6e6;
+  color: #777;
+  font-size: .8rem;
+}
+
+/* Que la navbar fija no tape el título al saltar a #cursos / #contacto */
+html {
+  scroll-padding-top: 64px;
+}
+
+/* Fondo gris claro de la sección de contacto */
+.contacto {
+  background: #f3f3f3;
+}
+
+/* Barra lateral gris de Dirección / Horarios / Teléfono */
+.info {
+  border-color: #999 !important;
+}
+
+/* Footer gris oscuro del mockup */
+.footer {
+  background: #555;
+  color: #e6e6e6;
+}

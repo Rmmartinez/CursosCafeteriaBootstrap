@@ -1,0 +1,937 @@
+
+[Image #1]
+
+> Te adjunto el mockup de una landing. Usá Bootstrap 5.3 por CDN, sin
+  jQuery, y CSS propio solo si Bootstrap no lo resuelve. Tiene que incluir
+  navbar responsive, hero con grilla, tres cards, formulario validado y un
+  modal. No escribas código todavía.
+  Describí qué secciones ves y, para cada una, qué componentes y clases
+  de grilla usarías y cómo se vería en celular.
+  Marcá lo que no puedas distinguir en la imagen.
+  Lo vamos a hacer sección por sección
+
+● Updated plan
+  ⎿  /plan to preview
+
+● User approved Claude's plan
+  ⎿  Plan saved to:
+     ~\.claude\plans\pasted-content-id-43d2-te-adjunto-cozy-dewdrop.md · /plan
+     to edit
+     Landing "Café Serrano" — Análisis del mockup (sin código)
+
+     Contexto
+
+     Maquetar la landing del mockup con Bootstrap 5.3 por CDN (CSS +
+     bootstrap.bundle.min.js, que trae Popper; sin jQuery). CSS propio solo
+     donde Bootstrap no llega. Se implementará sección por sección, validando
+     cada una antes de pasar a la siguiente.
+     Archivos a crear: index.html, css/styles.css (mínimo), js/main.js
+     (validación + modal).
+
+     ▎ ⚠️ = no se distingue con certeza en la imagen.
+
+     ---
+
+     1. Navbar
+
+     Veo: logo circular + "Café Serrano" a la izquierda; links Inicio (activo,
+     subrayado), Cursos, Nosotros, Contacto; botón oscuro "Inscribite" a la
+     derecha. Fondo gris claro con borde inferior.
+     Componentes/clases: navbar navbar-expand-lg bg-body-tertiary border-bottom
+     (sticky-top opcional ⚠️), container, navbar-brand con rounded-circle para
+     el logo, navbar-toggler + collapse navbar-collapse, navbar-nav ms-auto,
+     nav-link active + aria-current="page", botón btn btn-dark btn-sm ms-lg-3.
+     CSS propio: subrayado del link activo (border-bottom en .nav-link.active).
+     Celular: logo + hamburguesa; al tocar se despliega la lista vertical y el
+     botón "Inscribite" queda al final.
+     ⚠️ Si es fija al hacer scroll; si el logo es imagen o ícono; a dónde
+     apuntan Nosotros/Inscribite (no hay sección "Nosotros" visible).
+
+     2. Hero
+
+     Veo: fondo gris muy claro. Izquierda: badge "Escuela de barismo", h1
+     "Aprendé a preparar el café perfecto", 3 líneas de texto, botones "Ver
+     cursos" (relleno) y "Contactanos" (outline). Derecha: card "Próximo curso"
+     con foto, badge, título "Espresso 101", fecha "Sábado 24/10 · 10 a 13 hs",
+     2 líneas de texto y botón outline "Reservar lugar".
+     Grilla: section.py-5.bg-body-tertiary > .container >
+     .row.align-items-center.g-4 → col-lg-7 (texto) + col-lg-5 (card).
+     Proporción aprox. 60/40.
+     Componentes: badge rounded-pill text-bg-light, display-5 fw-bold, lead, btn
+     btn-dark / btn btn-outline-dark, card con card-img-top, badge
+     text-bg-secondary, card-title, text-body-secondary small.
+     Celular: columnas apiladas: texto arriba, card abajo a ancho completo;
+     botones en fila (o d-grid apilados si no entran).
+     ⚠️ Contenido real de los párrafos (son placeholders); foto real; año de la
+     fecha; si "Reservar lugar" lleva al formulario.
+
+     3. Nuestros cursos (tres cards)
+
+     Veo: h2 "Nuestros cursos" + subtítulo. Tres cards iguales: foto, badge de
+     nivel (Inicial / Intermedio / Todos los niveles), título (Barismo inicial,
+     Latte art, Métodos de filtrado), 3 líneas de texto, precio ($ 45.000 / $
+     52.000 / $ 38.000) y botón outline "Ver más".
+     Grilla: .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4, cada col con card
+     h-100.
+     Componentes: card-img-top, badge text-bg-secondary, card-body d-flex
+     flex-column, pie con d-flex justify-content-between align-items-center
+     mt-auto (precio fw-bold fs-5 + btn btn-outline-dark btn-sm).
+     CSS propio: object-fit: cover + altura fija para las fotos.
+     Celular: una card por fila; en tablet 2 + 1.
+     ⚠️ Qué hace "Ver más" (otra página, modal, collapse); textos de
+     descripción; si el precio es final o por cuota.
+
+     4. Contacto: formulario + "Dónde estamos"
+
+     Veo: fondo gris claro. Izquierda: card "Consultanos" con Nombre y Email
+     (floating labels, en 2 columnas), Teléfono con prefijo "+54", select "Curso
+     que te interesa", textarea "Mensaje", checkbox "Quiero recibir novedades
+     por email" y botón "Enviar consulta". Derecha: "Dónde estamos" con
+     Dirección, Horarios y Teléfono (cada uno con barra lateral izquierda) y un
+     mapa.
+     Grilla: .row.g-5 → col-lg-7 (form) + col-lg-5 (info). Dentro del form:
+     .row.g-3 con col-md-6 para Nombre/Email y col-12 para el resto.
+     Componentes form: card p-4, form-floating (Nombre, Email), input-group +
+     input-group-text "+54", form-label + form-select, form-control textarea,
+     form-check, btn btn-dark.
+     Validación: <form novalidate class="needs-validation"> + JS vanilla con
+     checkValidity() y was-validated; required, type="email", type="tel" con
+     pattern, select con opción vacía deshabilitada; invalid-feedback por campo.
+     Checkbox opcional.
+     Info: bloques con border-start border-3 ps-3 mb-4; mapa con ratio
+     ratio-16x9 + iframe de Google Maps (o placeholder).
+     Celular: form arriba, info y mapa abajo; Nombre y Email se apilan.
+     ⚠️ Si Teléfono y Mensaje son obligatorios; opciones del select (asumo los 3
+     cursos); dirección/horarios reales; si el mapa es embed o imagen; si el
+     formulario envía a algún backend (asumo que no: solo valida y abre el
+     modal).
+
+     5. Footer
+
+     Veo: barra gris oscura: "© 2026 Café Serrano · San Luis" a la izquierda;
+     "Instagram · Facebook · WhatsApp" a la derecha.
+     Clases: footer.bg-dark.text-white-50.py-4 >
+     .container.d-flex.flex-column.flex-md-row.justify-content-between.gap-2;
+     links link-light link-underline-opacity-0.
+     Celular: dos líneas centradas (text-center text-md-start).
+     ⚠️ Si las redes llevan íconos (Bootstrap Icons) o solo texto; URLs.
+
+     6. Modal "¡Consulta enviada!"
+
+     Veo: se abre al enviar el formulario. Header con título y ✕, body con 2
+     líneas de texto, footer con botón "Aceptar". Fondo oscurecido (backdrop).
+     Componentes: modal fade > modal-dialog modal-dialog-centered >
+     modal-content con modal-header (btn-close), modal-body, modal-footer (btn
+     btn-dark con data-bs-dismiss="modal").
+     Disparo: en el submit, si el form es válido →
+     bootstrap.Modal.getOrCreateInstance(...).show(), luego form.reset() y
+     quitar was-validated.
+     Celular: el modal ocupa casi todo el ancho con márgenes laterales
+     (comportamiento por defecto).
+     ⚠️ Texto exacto del mensaje; si "Aceptar" hace algo más que cerrar.
+
+     ---
+
+     Estilo general
+
+     Paleta en grises (es wireframe) ⚠️ colores reales de marca. Tipografía
+     sans-serif tipo Inter ⚠️ (se puede cargar por Google Fonts o usar la del
+     sistema). Bordes redondeados chicos y sombras suaves → defaults de
+     Bootstrap.
+
+     Orden de trabajo (sección por sección)
+
+     1. Esqueleto HTML + CDN + navbar → 2. Hero → 3. Cursos → 4. Formulario +
+        info → 5. Footer → 6. Modal + JS de validación.
+
+     Verificación
+
+     Abrir index.html en el navegador; probar con DevTools en 375px, 768px y
+     1200px; enviar el form vacío (deben verse los errores), con email inválido,
+     y completo (debe abrirse el modal y resetearse el form); probar la
+     hamburguesa en móvil; revisar la consola sin errores.
+
+● El análisis está aprobado. Todavía no escribí código, como pediste.
+
+  Secciones que veo en el mockup:
+  1. Navbar: navbar-expand-lg con botón hamburguesa (navbar-toggler + collapse),
+     links alineados a la derecha con ms-auto y el botón "Inscribite". En
+     celular queda el logo con la hamburguesa, y al tocarla se abre una lista
+     vertical.
+  2. Hero: una fila row con col-lg-7 para el texto y col-lg-5 para la card
+     "Próximo curso". En celular las dos partes se apilan, primero el texto y
+     abajo la card.
+  3. Cursos: las tres cards van en row-cols-1 row-cols-md-2 row-cols-lg-3 con
+     card h-100, y el precio con "Ver más" queda abajo de cada card con mt-auto.
+     En celular hay 1 card por fila y en tablet 2 + 1.
+  4. Contacto: el formulario va en col-lg-7 y "Dónde estamos" con el mapa en
+     col-lg-5.
+     - Campos: Nombre y Email con etiqueta flotante (form-floating) y Teléfono
+       con el prefijo "+54" (input-group).
+     - Validación: con las clases de Bootstrap (novalidate + was-validated) y un
+       poco de JavaScript propio, sin jQuery.
+     - Mapa: dentro de ratio-16x9.
+     - En celular: queda todo en una columna.
+  5. Footer: d-flex flex-column flex-md-row justify-content-between. En celular
+     son dos líneas centradas.
+  6. Modal: modal-dialog-centered, que se abre desde JavaScript solo cuando el
+     formulario es válido. Después se vacía el formulario.
+
+  Lo que no se distingue en la imagen (en el plan está marcado con ⚠️):
+  - Si la navbar queda fija al hacer scroll.
+  - A dónde llevan "Nosotros" e "Inscribite". No hay ninguna sección "Nosotros"
+    en el mockup.
+  - Los textos reales: las líneas grises son relleno.
+  - Qué hace "Ver más".
+  - Qué campos son obligatorios, sobre todo Teléfono y Mensaje.
+  - Las opciones del desplegable de cursos.
+  - Si el mapa es un mapa real o una imagen.
+  - Si las redes llevan íconos.
+  - Los colores y la tipografía de la marca: el mockup está todo en grises.
+
+  El análisis completo está en el plan (C:/Users/Usuario/.claude/plans/pasted-co
+  ntent-id-43d2-te-adjunto-cozy-dewdrop.md).
+
+  ¿Arrancamos con la sección 1, el HTML base con Bootstrap por CDN y la navbar?
+  Si querés, antes aclarame alguna de las dudas de arriba.
+
+> <ide_opened_file>The user opened the file c:\Users\Usuario\.claude\plans\past
+  ed-content-id-43d2-te-adjunto-cozy-dewdrop.md in the IDE. This may or may not
+  be related to the current task.</ide_opened_file>
+
+> - que la navbar quede fija al hacer scroll.
+  - "Nosotros" e "Inscribite" lo vamos a dejar como botones de prueba.
+  - Las líneas grises rellenalas con lorem ipsum.
+  - "Ver más" aún es un botón de prueba.
+  - hagamos obligatorios los campos nombre, email, teléfono y mensaje. La
+  máxima longitud del teléfono (además del +54) es de 10.
+  - Las redes no llevan icono.
+  - Por ahora, los tonos serán los mismo que en el mockup
+
+● Arranco con la sección 1: el HTML base y la navbar fija.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Write(index.html)
+  ⎿  Wrote 44 lines to index.html
+       1 <!doctype html>
+       2 <html lang="es">
+       3 <head>
+       5   <meta name="viewport" content="width=device-width, initial-sca
+         le=1">
+       6   <title>Café Serrano · Escuela de barismo</title>
+       7   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/
+       8   <link href="css/styles.css" rel="stylesheet">
+       9 </head>
+      10 <body>
+     … +47 lines (ctrl+o to expand)
+
+● Write(css\styles.css)
+  ⎿  Wrote 26 lines to css\styles.css
+      1 /* Tonos grises del mockup sobre el botón oscuro de Bootstrap */
+      2 .btn-dark {
+      3   --bs-btn-bg: #555;
+      4   --bs-btn-border-color: #555;
+      5   --bs-btn-hover-bg: #444;
+      6   --bs-btn-hover-border-color: #444;
+      7   --bs-btn-active-bg: #333;
+      8   --bs-btn-active-border-color: #333;
+      9 }
+     … +16 lines (ctrl+o to expand)
+
+● Write(js\main.js)
+  ⎿  Wrote 1 line to js\main.js
+      1 // Validación del formulario y modal: se completa en la sección 6
+        .
+
+● Hice la sección 1: el HTML base y la navbar. Todavía no la abrí en el
+  navegador para probarla.
+
+  Archivos:
+  - index.html carga Bootstrap 5.3.3 por CDN, sin jQuery. Tiene la navbar y un
+    <main> vacío donde van a ir las próximas secciones.
+  - css/styles.css tiene el CSS propio mínimo:
+    - el gris del botón oscuro (#555), igual que en el mockup;
+    - el círculo que hace de logo;
+    - el subrayado de "Inicio" en escritorio.
+  - js/main.js está vacío por ahora. Ahí van la validación y el modal en la
+    sección 6.
+
+  Cómo queda la navbar:
+  - Fija al hacer scroll: usé sticky-top. A diferencia de fixed-top, no tapa el
+    contenido de abajo.
+  - En celular: se ven el logo y la hamburguesa. Al tocarla se abre la lista de
+    links, con "Inscribite" al final.
+  - Botones de prueba: "Nosotros" e "Inscribite" llevan href="#".
+  - Links internos: "Cursos" y "Contacto" ya apuntan a #cursos y #contacto, que
+    voy a crear en las próximas secciones.
+
+  Ya tengo anotado lo que definiste para más adelante: lorem ipsum en las líneas
+  grises, "Ver más" como botón de prueba, Nombre/Email/Teléfono/Mensaje
+  obligatorios, teléfono de hasta 10 dígitos además del +54, redes sin íconos y
+  los mismos grises del mockup.
+
+  Para verla, abrí index.html en el navegador y probá el ancho de celular con
+  DevTools (F12). ¿Sigo con la sección 2, el hero?
+
+> <ide_opened_file>The user opened the file
+  c:\Users\Usuario\Desktop\Diplomatura\Entregable Mockup\index.html in the IDE.
+  This may or may not be related to the current task.</ide_opened_file>
+
+> sigamos con la sección 2
+
+● Update(index.html)
+  ⎿  Added 36 lines, removed 1 line
+      35    </nav>
+      36  
+      37    <main id="inicio">
+      38 -    <!-- Próximas secciones: hero, cursos, contacto -->        
+      38 +    <!-- 2. Hero -->                                           
+      39 +    <section class="hero py-5 border-bottom">                  
+      40 +      <div class="container py-lg-5">                          
+      41 +        <div class="row align-items-center g-5">               
+      42 +          <div class="col-lg-7">                               
+      43 +            <span class="badge rounded-pill text-bg-light borde
+         +r fw-medium mb-3">Escuela de barismo</span>                    
+      44 +            <h1 class="display-5 fw-bold mb-3">Aprendé a prepar
+         +ar el café perfecto</h1>                                       
+      45 +            <p class="lead text-body-secondary mb-4">          
+      46 +              Lorem ipsum dolor sit amet, consectetur adipiscin
+         +g elit. Sed do eiusmod tempor                                  
+      47 +              incididunt ut labore et dolore magna aliqua, ut e
+         +nim ad minim veniam.                                           
+      48 +            </p>                                               
+      49 +            <div class="d-flex flex-wrap gap-2">               
+      50 +              <a class="btn btn-dark px-3" href="#cursos">Ver c
+         +ursos</a>                                                      
+      51 +              <a class="btn btn-outline-dark px-3" href="#conta
+         +cto">Contactanos</a>                                           
+      52 +            </div>                                             
+      53 +          </div>                                               
+      54 +                                                               
+      55 +          <div class="col-lg-5">                               
+      56 +            <div class="card shadow-sm">                       
+      57 +              <div class="placeholder-img card-img-top">Foto</d
+         +iv>                                                            
+      58 +              <div class="card-body p-4">                      
+      59 +                <span class="badge text-bg-secondary text-upper
+         +case mb-2">Próximo curso</span>                                
+      60 +                <h2 class="card-title h5 fw-bold mb-1">Espresso
+         + 101</h2>                                                      
+      61 +                <p class="small text-body-secondary mb-3">Sábad
+         +o 24/10 · 10 a 13 hs</p>                                       
+      62 +                <p class="card-text small text-body-secondary">
+      63 +                  Lorem ipsum dolor sit amet, consectetur adipi
+         +scing elit. Integer nec odio praesent libero.                  
+      64 +                </p>                                           
+      65 +                <a class="btn btn-outline-dark btn-sm px-3" hre
+         +f="#contacto">Reservar lugar</a>                               
+      66 +              </div>                                           
+      67 +            </div>                                             
+      68 +          </div>                                               
+      69 +        </div>                                                 
+      70 +      </div>                                                   
+      71 +    </section>                                                 
+      72 +                                                               
+      73 +    <!-- Próximas secciones: cursos, contacto -->              
+      74    </main>
+      75  
+      76    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dis
+          t/js/bootstrap.bundle.min.js"></script>
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Agregué la sección 2, el hero, en index.html. Todavía no la abrí en el
+  navegador para verla.
+
+  Grilla: usé row align-items-center g-5, con col-lg-7 para el texto y col-lg-5
+  para la card. Así respeta la proporción del mockup, de alrededor de 60/40.
+
+  Columna izquierda:
+  - El badge redondeado "Escuela de barismo" y el título grande "Aprendé a
+    preparar el café perfecto" (display-5 fw-bold).
+  - Un párrafo de lorem ipsum en lugar de las líneas grises.
+  - Los botones "Ver cursos" (relleno, lleva a #cursos) y "Contactanos" (borde,
+    lleva a #contacto). Usé flex-wrap gap-2, así que en pantallas angostas pasan
+    a otra línea si no entran.
+
+  Card "Próximo curso":
+  - El recuadro "Foto", el badge "Próximo curso", el título "Espresso 101" y la
+    fecha.
+  - Un texto de lorem ipsum y el botón "Reservar lugar", que lleva al
+    formulario.
+
+  CSS nuevo en css/styles.css:
+  - .hero: el fondo gris muy claro del mockup.
+  - .placeholder-img: el recuadro gris con la palabra "Foto". Lo voy a
+    reutilizar en las cards de cursos y en el mapa. Cuando tengas las fotos, se
+    cambia por un <img>.
+
+  En celular: se apila todo; primero el texto y los botones, y abajo la card a
+  lo ancho de la pantalla.
+
+  ¿Sigo con la sección 3, las cards de cursos?
+
+> si, sigamos por la sección 3
+
+● Update(index.html)
+  ⎿  Added 62 lines, removed 1 line
+       70        </div>
+       71      </section>
+       72  
+       73 -    <!-- Próximas secciones: cursos, contacto -->             
+       73 +    <!-- 3. Nuestros cursos -->                               
+       74 +    <section id="cursos" class="py-5">                        
+       75 +      <div class="container py-lg-4">                         
+       76 +        <h2 class="fw-bold mb-1">Nuestros cursos</h2>         
+       77 +        <p class="text-body-secondary mb-4">Para principiantes
+          + y para quienes ya trabajan detrás de la barra.</p>           
+       78 +                                                              
+       79 +        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3
+          + g-4">                                                        
+       80 +          <div class="col">                                   
+       81 +            <div class="card h-100 shadow-sm">                
+       82 +              <div class="placeholder-img card-img-top">Foto</
+          +div>                                                          
+       83 +              <div class="card-body d-flex flex-column p-4">  
+       84 +                <span class="badge text-bg-secondary text-uppe
+          +rcase align-self-start mb-2">Inicial</span>                   
+       85 +                <h3 class="card-title h5 fw-bold">Barismo inic
+          +ial</h3>                                                      
+       86 +                <p class="card-text small text-body-secondary"
+          +>                                                             
+       87 +                  Lorem ipsum dolor sit amet, consectetur adip
+          +iscing elit. Sed do eiusmod tempor incididunt ut labore.      
+       88 +                </p>                                          
+       89 +                <div class="d-flex justify-content-between ali
+          +gn-items-center mt-auto pt-2">                                
+       90 +                  <span class="fw-bold fs-5">$ 45.000</span>  
+       91 +                  <a class="btn btn-outline-dark btn-sm px-3" 
+          +href="#">Ver más</a>                                          
+       92 +                </div>                                        
+       93 +              </div>                                          
+       94 +            </div>                                            
+       95 +          </div>                                              
+       96 +                                                              
+       97 +          <div class="col">                                   
+       98 +            <div class="card h-100 shadow-sm">                
+       99 +              <div class="placeholder-img card-img-top">Foto</
+          +div>                                                          
+      100 +              <div class="card-body d-flex flex-column p-4">  
+      101 +                <span class="badge text-bg-secondary text-uppe
+          +rcase align-self-start mb-2">Intermedio</span>                
+      102 +                <h3 class="card-title h5 fw-bold">Latte art</h
+          +3>                                                            
+      103 +                <p class="card-text small text-body-secondary"
+          +>                                                             
+      104 +                  Ut enim ad minim veniam, quis nostrud exerci
+          +tation ullamco laboris nisi ut aliquip ex ea commodo.         
+      105 +                </p>                                          
+      106 +                <div class="d-flex justify-content-between ali
+          +gn-items-center mt-auto pt-2">                                
+      107 +                  <span class="fw-bold fs-5">$ 52.000</span>  
+      108 +                  <a class="btn btn-outline-dark btn-sm px-3" 
+          +href="#">Ver más</a>                                          
+      109 +                </div>                                        
+      110 +              </div>                                          
+      111 +            </div>                                            
+      112 +          </div>                                              
+      113 +                                                              
+      114 +          <div class="col">                                   
+      115 +            <div class="card h-100 shadow-sm">                
+      116 +              <div class="placeholder-img card-img-top">Foto</
+          +div>                                                          
+      117 +              <div class="card-body d-flex flex-column p-4">  
+      118 +                <span class="badge text-bg-secondary text-uppe
+          +rcase align-self-start mb-2">Todos los niveles</span>         
+      119 +                <h3 class="card-title h5 fw-bold">Métodos de f
+          +iltrado</h3>                                                  
+      120 +                <p class="card-text small text-body-secondary"
+          +>                                                             
+      121 +                  Duis aute irure dolor in reprehenderit in vo
+          +luptate velit esse cillum dolore eu fugiat nulla.             
+      122 +                </p>                                          
+      123 +                <div class="d-flex justify-content-between ali
+          +gn-items-center mt-auto pt-2">                                
+      124 +                  <span class="fw-bold fs-5">$ 38.000</span>  
+      125 +                  <a class="btn btn-outline-dark btn-sm px-3" 
+          +href="#">Ver más</a>                                          
+      126 +                </div>                                        
+      127 +              </div>                                          
+      128 +            </div>                                            
+      129 +          </div>                                              
+      130 +        </div>                                                
+      131 +      </div>                                                  
+      132 +    </section>                                                
+      133 +                                                              
+      134 +    <!-- Próximas secciones: contacto -->                     
+      135    </main>
+      136  
+      137    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/di
+           st/js/bootstrap.bundle.min.js"></script>
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Agregué la sección 3, "Nuestros cursos", en index.html. Todavía no la revisé
+  en el navegador.
+
+  Encabezado: el título "Nuestros cursos" y el subtítulo del mockup.
+
+  Grilla: usé row-cols-1 row-cols-md-2 row-cols-lg-3 g-4.
+  - Celular: 1 card por fila.
+  - Tablet: 2 + 1.
+  - Escritorio: las 3 en una fila.
+
+  Cada card:
+  - El recuadro "Foto", un badge con el nivel (Inicial, Intermedio, Todos los
+    niveles), el título y un texto de lorem ipsum.
+  - Abajo, el precio y el botón "Ver más". Por ahora "Ver más" es de prueba
+    (href="#").
+
+  Misma altura y pie alineado: las cards tienen h-100 y el cuerpo es una columna
+  flex (d-flex flex-column). Con mt-auto, el precio y "Ver más" quedan siempre
+  abajo, alineados en las tres aunque los textos tengan largos distintos.
+
+  CSS: sumé una sola regla en css/styles.css, scroll-padding-top. Así, al tocar
+  "Ver cursos" o "Cursos", la navbar fija no tapa el título de la sección.
+
+  ¿Sigo con la sección 4, el formulario y "Dónde estamos"?
+
+> sigamos por la sección 4
+
+● Update(index.html)
+  ⎿  Added 87 lines, removed 1 line
+      131        </div>
+      132      </section>
+      133  
+      134 -    <!-- Próximas secciones: contacto -->                     
+      134 +    <!-- 4. Contacto -->                                      
+      135 +    <section id="contacto" class="contacto py-5 border-top">  
+      136 +      <div class="container py-lg-4">                         
+      137 +        <div class="row g-5">                                 
+      138 +          <div class="col-lg-7">                              
+      139 +            <div class="card shadow-sm p-4 p-md-4">           
+      140 +              <h2 class="h4 fw-bold mb-4">Consultanos</h2>    
+      141 +                                                              
+      142 +              <form id="form-consulta" class="needs-validation
+          +" novalidate>                                                 
+      143 +                <div class="row g-3">                         
+      144 +                  <div class="col-md-6">                      
+      145 +                    <div class="form-floating">               
+      146 +                      <input type="text" class="form-control" 
+          +id="nombre" name="nombre" placeholder="Tu nombre" required>   
+      147 +                      <label for="nombre">Nombre</label>      
+      148 +                      <div class="invalid-feedback">Ingresá tu
+          + nombre.</div>                                                
+      149 +                    </div>                                    
+      150 +                  </div>                                      
+      151 +                  <div class="col-md-6">                      
+      152 +                    <div class="form-floating">               
+      153 +                      <input type="email" class="form-control"
+          + id="email" name="email" placeholder="nombre@mail.com" require
+          +d>                                                            
+      154 +                      <label for="email">Email</label>        
+      155 +                      <div class="invalid-feedback">Ingresá un
+          + email válido.</div>                                          
+      156 +                    </div>                                    
+      157 +                  </div>                                      
+      158 +                                                              
+      159 +                  <div class="col-12">                        
+      160 +                    <div class="input-group has-validation">  
+      161 +                      <span class="input-group-text fw-semibol
+          +d">+54</span>                                                 
+      162 +                      <input type="tel" class="form-control" i
+          +d="telefono" name="telefono" placeholder="Teléfono"           
+      163 +                             aria-label="Teléfono" inputmode="
+          +numeric" maxlength="10" pattern="[0-9]{6,10}" required>       
+      164 +                      <div class="invalid-feedback">Ingresá so
+          +lo números, hasta 10 dígitos.</div>                           
+      165 +                    </div>                                    
+      166 +                  </div>                                      
+      167 +                                                              
+      168 +                  <div class="col-12">                        
+      169 +                    <label for="curso" class="form-label small
+          + fw-semibold">Curso que te interesa</label>                   
+      170 +                    <select class="form-select" id="curso" nam
+          +e="curso">                                                    
+      171 +                      <option value="" selected>Elegí un curso
+          +</option>                                                     
+      172 +                      <option>Barismo inicial</option>        
+      173 +                      <option>Latte art</option>              
+      174 +                      <option>Métodos de filtrado</option>    
+      175 +                      <option>Espresso 101</option>           
+      176 +                    </select>                                 
+      177 +                  </div>                                      
+      178 +                                                              
+      179 +                  <div class="col-12">                        
+      180 +                    <label for="mensaje" class="form-label sma
+          +ll fw-semibold">Mensaje</label>                               
+      181 +                    <textarea class="form-control" id="mensaje
+          +" name="mensaje" rows="4" required></textarea>                
+      182 +                    <div class="invalid-feedback">Escribí tu c
+          +onsulta.</div>                                                
+      183 +                  </div>                                      
+      184 +                                                              
+      185 +                  <div class="col-12">                        
+      186 +                    <div class="form-check">                  
+      187 +                      <input class="form-check-input" type="ch
+          +eckbox" id="novedades" name="novedades">                      
+      188 +                      <label class="form-check-label small" fo
+          +r="novedades">Quiero recibir novedades por email</label>      
+      189 +                    </div>                                    
+      190 +                  </div>                                      
+      191 +                                                              
+      192 +                  <div class="col-12">                        
+      193 +                    <button type="submit" class="btn btn-dark 
+          +px-3">Enviar consulta</button>                                
+      194 +                  </div>                                      
+      195 +                </div>                                        
+      196 +              </form>                                         
+      197 +            </div>                                            
+      198 +          </div>                                              
+      199 +                                                              
+      200 +          <div class="col-lg-5">                              
+      201 +            <h2 class="h5 fw-bold mb-4">Dónde estamos</h2>    
+      202 +            <div class="info border-start border-3 ps-3 mb-4">
+      203 +              <h3 class="h6 fw-bold mb-1">Dirección</h3>      
+      204 +              <p class="small text-body-secondary mb-0">Lorem 
+          +ipsum 1234, San Luis</p>                                      
+      205 +            </div>                                            
+      206 +            <div class="info border-start border-3 ps-3 mb-4">
+      207 +              <h3 class="h6 fw-bold mb-1">Horarios</h3>       
+      208 +              <p class="small text-body-secondary mb-0">Lunes 
+          +a viernes, lorem ipsum<br>Sábados, dolor sit amet</p>         
+      209 +            </div>                                            
+      210 +            <div class="info border-start border-3 ps-3 mb-4">
+      211 +              <h3 class="h6 fw-bold mb-1">Teléfono</h3>       
+      212 +              <p class="small text-body-secondary mb-0">+54 00
+          +0 000-0000</p>                                                
+      213 +            </div>                                            
+      214 +            <div class="ratio ratio-16x9">                    
+      215 +              <div class="placeholder-img h-100 border rounded
+          +">Mapa</div>                                                  
+      216 +            </div>                                            
+      217 +          </div>                                              
+      218 +        </div>                                                
+      219 +      </div>                                                  
+      220 +    </section>                                                
+      221    </main>
+      222  
+      223    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/di
+           st/js/bootstrap.bundle.min.js"></script>
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Update(index.html)
+  ⎿  Added 1 line, removed 1 line
+      136        <div class="container py-lg-4">
+      137          <div class="row g-5">
+      138            <div class="col-lg-7">
+      139 -            <div class="card shadow-sm p-4 p-md-4">           
+      139 +            <div class="card shadow-sm p-4">                  
+      140                <h2 class="h4 fw-bold mb-4">Consultanos</h2>
+      141  
+      142                <form id="form-consulta" class="needs-validation
+           " novalidate>
+
+● La sección 4 (formulario y "Dónde estamos") ya está en index.html, pero los
+  mensajes de error todavía no aparecen. El formulario tiene novalidate y el
+  JavaScript que valida llega en la sección 6. Tampoco la abrí en el navegador.
+
+  Grilla: row g-5, con col-lg-7 para el formulario y col-lg-5 para la info. En
+  celular queda todo en una columna, el formulario arriba y la info con el mapa
+  abajo.
+
+  Formulario "Consultanos":
+  - Nombre y Email: obligatorios, con etiqueta flotante (form-floating). Van en
+    dos columnas (col-md-6) y en celular se apilan. Email usa type="email".
+  - Teléfono: obligatorio, con el prefijo "+54" (input-group).
+    - Acepta hasta 10 caracteres (maxlength="10") y solo números.
+    - Esto lo decidí yo: puse un mínimo de 6 dígitos (pattern="[0-9]{6,10}"). Si
+      querés exactamente 10, se cambia a [0-9]{10}.
+    - En celular abre el teclado numérico.
+  - Curso que te interesa: es optativo, porque no lo nombraste entre los
+    obligatorios. Ofrece los 3 cursos más Espresso 101.
+  - Mensaje: obligatorio.
+  - Casilla de novedades: optativa.
+  - Mensajes de error: cada campo obligatorio tiene su texto en español
+    (invalid-feedback).
+
+  "Dónde estamos": Dirección, Horarios y Teléfono con lorem ipsum, cada uno con
+  la barra gris a la izquierda. Abajo va el recuadro "Mapa" en proporción 16:9.
+
+  CSS nuevo en css/styles.css: el fondo gris de la sección y el gris de las
+  barras laterales.
+
+  ¿Sigo con la sección 5, el footer?
+
+> Si, sigamos por la sección 5
+● Update(index.html)
+  ⎿  Added 12 lines
+      220      </section>
+      221    </main>
+      222  
+      223 +  <!-- 5. Footer -->                                          
+      224 +  <footer class="footer py-4 small">                          
+      225 +    <div class="container d-flex flex-column flex-md-row justi
+          +fy-content-between align-items-center gap-2 text-center text-m
+          +d-start">                                                     
+      226 +      <p class="mb-0">© 2026 Café Serrano · San Luis</p>      
+      227 +      <p class="mb-0">                                        
+      228 +        <a class="link-light link-underline-opacity-0 link-und
+          +erline-opacity-75-hover" href="#">Instagram</a> ·             
+      229 +        <a class="link-light link-underline-opacity-0 link-und
+          +erline-opacity-75-hover" href="#">Facebook</a> ·              
+      230 +        <a class="link-light link-underline-opacity-0 link-und
+          +erline-opacity-75-hover" href="#">WhatsApp</a>                
+      231 +      </p>                                                    
+      232 +    </div>                                                    
+      233 +  </footer>                                                   
+      234 +                                                              
+      235    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/di
+           st/js/bootstrap.bundle.min.js"></script>
+      236    <script src="js/main.js"></script>
+      237  </body>
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Agregué la sección 5, el footer, en index.html, a continuación de </main>.
+  Todavía no lo revisé en el navegador.
+
+  Contenido:
+  - Izquierda: "© 2026 Café Serrano · San Luis".
+  - Derecha: Instagram · Facebook · WhatsApp, sin íconos. Son links de prueba
+    (href="#"): sin subrayado, y se subrayan al pasar el mouse.
+
+  Disposición:
+  - Escritorio y tablet: una sola línea, con el copyright a la izquierda y las
+    redes a la derecha (flex-md-row justify-content-between).
+  - Celular: dos líneas centradas (flex-column text-center).
+
+  CSS nuevo en css/styles.css: el fondo gris oscuro #555 del mockup, con texto
+  gris claro.
+
+  ¿Sigo con la sección 6, el modal y la validación del formulario?
+
+> Si, continuá con la sección 6, el modal y la validación del formulario
+
+● Update(index.html)
+  ⎿  Added 18 lines
+      232      </div>
+      233    </footer>
+      234  
+      235 +  <!-- 6. Modal de confirmación -->                           
+      236 +  <div class="modal fade" id="modal-enviado" tabindex="-1" ari
+          +a-labelledby="modal-enviado-titulo" aria-hidden="true">       
+      237 +    <div class="modal-dialog modal-dialog-centered">          
+      238 +      <div class="modal-content">                             
+      239 +        <div class="modal-header">                            
+      240 +          <h2 class="modal-title h5 fw-bold" id="modal-enviado
+          +-titulo">¡Consulta enviada!</h2>                              
+      241 +          <button type="button" class="btn-close" data-bs-dism
+          +iss="modal" aria-label="Cerrar"></button>                     
+      242 +        </div>                                                
+      243 +        <div class="modal-body text-body-secondary">          
+      244 +          Lorem ipsum dolor sit amet, consectetur adipiscing e
+          +lit. Te vamos a responder a la brevedad.                      
+      245 +        </div>                                                
+      246 +        <div class="modal-footer">                            
+      247 +          <button type="button" class="btn btn-dark btn-sm px-
+          +3" data-bs-dismiss="modal">Aceptar</button>                   
+      248 +        </div>                                                
+      249 +      </div>                                                  
+      250 +    </div>                                                    
+      251 +  </div>                                                      
+      252 +                                                              
+      253    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/di
+           st/js/bootstrap.bundle.min.js"></script>
+      254    <script src="js/main.js"></script>
+      255  </body>
+
+● Write(js\main.js)
+  ⎿  Added 27 lines, removed 1 line
+       1 -// Validación del formulario y modal: se completa en la sección
+         - 6.                                                            
+       1 +// Validación del formulario de consulta y modal de confirmació
+         +n                                                              
+       2 +const form = document.getElementById('form-consulta');         
+       3 +const telefono = document.getElementById('telefono');          
+       4 +const modal = new bootstrap.Modal(document.getElementById('moda
+         +l-enviado'));                                                  
+       5 +                                                               
+       6 +// Teléfono: solo dígitos (borra letras, espacios o guiones al 
+         +escribir/pegar)                                                
+       7 +telefono.addEventListener('input', () => {                     
+       8 +  telefono.value = telefono.value.replace(/\D/g, '').slice(0, 1
+         +0);                                                            
+       9 +});                                                            
+      10 +                                                               
+      11 +form.addEventListener('submit', (event) => {                   
+      12 +  event.preventDefault();                                      
+      13 +                                                               
+      14 +  // Un nombre o mensaje con solo espacios no cuenta como compl
+         +eto                                                            
+      15 +  form.nombre.value = form.nombre.value.trim();                
+      16 +  form.mensaje.value = form.mensaje.value.trim();              
+      17 +                                                               
+      18 +  if (!form.checkValidity()) {                                 
+      19 +    form.classList.add('was-validated');                       
+      20 +    form.querySelector(':invalid').focus();                    
+      21 +    return;                                                    
+      22 +  }                                                            
+      23 +                                                               
+      24 +  modal.show();                                                
+      25 +  form.reset();                                                
+      26 +  form.classList.remove('was-validated');                      
+      27 +});                                                            
+
+● Agregué la sección 6, el modal y la validación del formulario. Con esto la
+  landing tiene todas las secciones del mockup. No la probé en el navegador.
+
+  Modal en index.html, después del footer:
+  - Usé modal fade con modal-dialog-centered, así queda centrado y con el fondo
+    oscurecido, como en el mockup.
+  - Tiene el título "¡Consulta enviada!", la ✕ para cerrar, un texto de lorem
+    ipsum y el botón "Aceptar", que solo cierra.
+  - En celular ocupa casi todo el ancho, con un margen a los costados.
+
+  Validación en js/main.js, con JavaScript propio y sin jQuery:
+  - Formulario incompleto o con errores: no se envía. Se marcan en rojo los
+    campos con problemas, con su mensaje en español, y el cursor va al primero
+    que falla.
+  - Formulario válido: se abre el modal, el formulario se vacía y se borran las
+    marcas de validación.
+  - Teléfono: mientras se escribe o se pega, borra todo lo que no sea número y
+    corta en 10 dígitos.
+  - Nombre y Mensaje: si solo tienen espacios, cuentan como vacíos.
+
+  Para probarla: abrí index.html en el navegador.
+  1. Tocá "Enviar consulta" con el formulario vacío: tienen que marcarse en rojo
+     Nombre, Email, Teléfono y Mensaje.
+  2. Escribí un email mal formado, por ejemplo "ana@", y un teléfono de menos de
+     6 dígitos: los dos tienen que dar error.
+  3. Escribí letras en Teléfono: no tienen que aparecer.
+  4. Completá todo bien y enviá: tiene que abrirse el modal y el formulario
+     tiene que quedar vacío.
+  5. En DevTools (F12), con ancho de celular de 375px, revisá que la hamburguesa
+     abra el menú y que las columnas se apilen.
+
+  Quedó pendiente decidir si el teléfono lleva exactamente 10 dígitos. Ahora
+  acepta de 6 a 10; si querés exactamente 10, se cambia una sola línea.
+
+> <ide_opened_file>The user opened the file
+  c:\Users\Usuario\Desktop\Diplomatura\Entregable Mockup\js\main.js in the IDE.
+  This may or may not be related to the current task.</ide_opened_file>
+
+> las validaciones tienen que estar en el html, no en el js. El teléfono que
+  tenga exactamente 10 dígitos
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Backslashes got lost; fixing those two patterns.
+
+● Update(index.html)
+  ⎿  Added 1 line, removed 1 line
+      143                  <div class="row g-3">
+      144                    <div class="col-md-6">
+      145                      <div class="form-floating">
+      146 -                      <input type="text" class="form-control" 
+          -id="nombre" name="nombre" placeholder="Tu nombre" pattern=".*S
+          -.*" required>                                                 
+      146 +                      <input type="text" class="form-control" 
+          +id="nombre" name="nombre" placeholder="Tu nombre" pattern=".*\
+          +S.*" required>                                                
+      147                        <label for="nombre">Nombre</label>
+      148                        <div class="invalid-feedback">Ingresá tu
+            nombre.</div>
+      149                      </div>
+
+● Update(index.html)
+  ⎿  Added 1 line, removed 1 line
+      150                    </div>
+      151                    <div class="col-md-6">
+      152                      <div class="form-floating">
+      153 -                      <input type="email" class="form-control"
+          - id="email" name="email" placeholder="nombre@mail.com" pattern
+          -="[^@s]+@[^@s]+.[^@s]+" required>                             
+      153 +                      <input type="email" class="form-control"
+          + id="email" name="email" placeholder="nombre@mail.com" pattern
+          +="[^@\s]+@[^@\s]+\.[^@\s]+" required>                         
+      154                        <label for="email">Email</label>
+      155                        <div class="invalid-feedback">Ingresá un
+            email válido.</div>
+      156                      </div>
+
+● Write(js\main.js)
+  ⎿  Added 2 lines, removed 12 lines
+       1 -// Validación del formulario de consulta y modal de confirmació
+         -n                                                              
+       1 +// Las reglas de validación están en el HTML (required, pattern
+         +, minlength, maxlength).                                       
+       2 +// Acá solo se muestran los errores con el estilo de Bootstrap 
+         +y se abre el modal.                                            
+       3  const form = document.getElementById('form-consulta');
+       3 -const telefono = document.getElementById('telefono');          
+       4  const modal = new bootstrap.Modal(document.getElementById('moda
+          l-enviado'));
+       5  
+       6 -// Teléfono: solo dígitos (borra letras, espacios o guiones al 
+         -escribir/pegar)                                                
+       7 -telefono.addEventListener('input', () => {                     
+       8 -  telefono.value = telefono.value.replace(/\D/g, '').slice(0, 1
+         -0);                                                            
+       9 -});                                                            
+      10 -                                                               
+       6  form.addEventListener('submit', (event) => {
+       7    event.preventDefault();
+       8  
+      14 -  // Un nombre o mensaje con solo espacios no cuenta como compl
+         -eto                                                            
+      15 -  form.nombre.value = form.nombre.value.trim();                
+      16 -  form.mensaje.value = form.mensaje.value.trim();              
+      17 -                                                               
+       9    if (!form.checkValidity()) {
+      10      form.classList.add('was-validated');
+      20 -    form.querySelector(':invalid').focus();                    
+      11      return;
+      12    }
+      13  
+
+● Pasé todas las reglas de validación al HTML y el teléfono ahora exige
+  exactamente 10 dígitos. No lo probé en el navegador.
+
+  Reglas en index.html:
+
+  Campo: Nombre
+  Atributos: required pattern=".*\S.*"
+  Qué valida: Obligatorio; si solo tiene espacios, da error.
+  ────────────────────────────────────────
+  Campo: Email
+  Atributos: type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+  Qué valida: Obligatorio y exige un punto después de la @. Sin el pattern, el
+  navegador acepta "ana@mail" como válido.
+  ────────────────────────────────────────
+  Campo: Teléfono
+  Atributos: required minlength="10" maxlength="10" pattern="[0-9]{10}"
+  Qué valida: Exactamente 10 números.
+  ────────────────────────────────────────
+  Campo: Mensaje
+  Atributos: required minlength="10"
+  Qué valida: Obligatorio, con mínimo 10 caracteres.
+
+  Dos cosas a tener en cuenta:
+  - El mínimo de 10 caracteres en Mensaje lo agregué yo. Un <textarea> no acepta
+    pattern, así que con HTML solo no hay forma de rechazar un mensaje hecho
+    solo de espacios. Con el mínimo, al menos hay que escribir algo. Si no lo
+    querés, saco el minlength y queda solo required.
+  - El teléfono ya no borra las letras al escribirlas, porque eso lo hacía el
+    JavaScript. Ahora se pueden tipear, pero el formulario no se envía y aparece
+    el mensaje "Ingresá exactamente 10 números, sin espacios ni guiones".
+
+  js/main.js quedó con lo justo:
+  - Frena el envío si el formulario no es válido y le agrega la clase
+    was-validated, para que Bootstrap pinte los errores en rojo.
+  - Si el formulario es válido, abre el modal y lo vacía.
+
+  Ese mínimo de JavaScript hace falta: sin él no se pueden mostrar los errores
+  con el estilo de Bootstrap (por el novalidate) ni abrir el modal.
